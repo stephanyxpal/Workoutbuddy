@@ -2,10 +2,11 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import Home from './pages/Home';
-import NotFound from './pages/NotFound';
-import Activity from './pages/Activity';
+import NotFound from './pages/Notfound';
+import Activity from './pages/activity';
 import FitnessGoals from './pages/FitnessGoals';
 import Profile from './pages/Profile';
+
 
 const router = createBrowserRouter([
   {
@@ -22,13 +23,14 @@ const router = createBrowserRouter([
         element: <Activity />
       },
       {
-        path: '/Fitnessgoals',
+        path: '/FitnessGoals',
         element: <FitnessGoals />
       },
       {
         path: '/Profile',
         element: <Profile />
       },
+
     ],
   },
 ]);
