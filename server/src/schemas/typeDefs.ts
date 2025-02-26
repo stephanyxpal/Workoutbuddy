@@ -26,10 +26,13 @@ type Auth {
 type Workout {
   id: ID!
   userId: ID!
-  activity: String!
-  duration: Int! # Minutes
-  date: Date!
+  workoutType: String!
+  duration: Int!
   caloriesBurned: Int
+  date: Date!
+  repetitions: Int
+  sets: Int
+  weightUsed: Int
 }
 
 # 🎯 Fitness Goals
@@ -43,31 +46,12 @@ type Goal {
   completed: Boolean!
 }
 
-# 🔍 Queries
-type Query {
-  me: User
-  workouts: [Workout]
-  goals: [Goal]
-}
-
-# 🏋️‍♂️ Input for Adding Workouts
-input WorkoutInput {
-  activity: String!
-  duration: Int!
-  date: Date!
-}
-
-# 🎯 Input for Setting Goals
-input GoalInput {
-  goalText: String!
-  targetDate: Date!
-  startDate: Date!
-}
-
-# ✏️ Input for Updating Profile
-input UpdateUserInput {
-  firstName: String
-  lastName: String
+# ✅ Add UserInput
+input UserInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
   city: String
   age: Int
   weight: Int
@@ -75,22 +59,45 @@ input UpdateUserInput {
   gender: String
 }
 
+input WorkoutInput {
+  workoutType: String!
+  duration: Int!
+  caloriesBurned: Int
+  date: Date!
+  repetitions: Int
+  sets: Int
+  weightUsed: Int
+}
+
+# ✅ Add GoalInput
+input GoalInput {
+  goalText: String!
+  targetDate: Date!
+  startDate: Date!
+}
+
+# 🔍 Queries
+type Query {
+  me: User
+  workouts: [Workout]
+  goals: [Goal]
+}
+
 # 🔧 Mutations (CRUD)
 type Mutation {
   login(email: String!, password: String!): Auth
   addUser(input: UserInput!): Auth
-  updateProfile(input: UpdateUserInput!): User
+  updateProfile(input: UserInput!): User
   deleteUser: Boolean
 
-  # 🏋️‍♂️ Workouts (CRUD)
+  # 🏋️‍♂️ Workouts
   addWorkout(input: WorkoutInput!): Workout
   deleteWorkout(id: ID!): Boolean
 
-  # 🎯 Fitness Goals (CRUD)
+  # 🎯 Fitness Goals
   addGoal(input: GoalInput!): Goal
   deleteGoal(id: ID!): Boolean
 }
-
 `;
 
 export default typeDefs;

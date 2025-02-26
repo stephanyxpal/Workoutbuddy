@@ -3,20 +3,6 @@ import Workout from '../models/workout.js';
 import Goal from '../models/goal.js';
 import { signToken, AuthenticationError } from '../services/auth.js';
 
-interface AddUserArgs {
-    input: {
-        firstName: string;
-        lastName: string;
-        password: string;
-        email: string;
-        city: string;
-        age: number;
-        weight: number;
-        height: number;
-        gender: string;
-    };
-}
-
 interface LoginUserArgs {
     email: string;
     password: string;
@@ -24,7 +10,7 @@ interface LoginUserArgs {
 
 const resolvers = {
     Query: {
-        // 🔐 Protected Query: Fetch logged-in user profile
+        // 🔐 Fetch logged-in user profile
         me: async (_parent: any, _args: any, context: any) => {
             if (!context.user) {
                 throw new AuthenticationError('You must be logged in to view this information.');
@@ -32,7 +18,7 @@ const resolvers = {
             return await User.findById(context.user._id).select('-__v -password');
         },
 
-        // 🔐 Protected Query: Fetch workouts for logged-in user
+        // 🔐 Fetch workouts for logged-in user
         workouts: async (_parent: any, _args: any, context: any) => {
             if (!context.user) {
                 throw new AuthenticationError('You must be logged in!');
@@ -40,7 +26,7 @@ const resolvers = {
             return await Workout.find({ userId: context.user._id });
         },
 
-        // 🔐 Protected Query: Fetch fitness goals for logged-in user
+        // 🔐 Fetch fitness goals for logged-in user
         goals: async (_parent: any, _args: any, context: any) => {
             if (!context.user) {
                 throw new AuthenticationError('You must be logged in!');
@@ -52,31 +38,47 @@ const resolvers = {
     Mutation: {
         // ✅ User Login
         login: async (_parent: any, { email, password }: LoginUserArgs) => {
+            console.log(`📌 Attempting login for email: ${email}`);
+
             const user = await User.findOne({ email });
             if (!user) {
+                console.log("❌ User not found");
                 throw new AuthenticationError('Invalid email or password.');
             }
 
             const correctPw = await user.isCorrectPassword(password);
             if (!correctPw) {
+                console.log("❌ Incorrect password for:", email);
                 throw new AuthenticationError('Invalid email or password.');
             }
 
+            console.log("✅ Login successful:", email);
             const token = signToken(user.firstName, user.email, user._id);
             return { token, user };
         },
 
-        // ✅ Register a new user
-        addUser: async (_parent: any, { input }: AddUserArgs) => {
+        // ✅ Register a New User
+        addUser: async (_parent: any, { input }: any) => {
+            console.log("📌 Received addUser request:", input.email);
+
             const existingUser = await User.findOne({ email: input.email });
             if (existingUser) {
+                console.log("❌ User already exists:", input.email);
                 throw new AuthenticationError('User already exists');
             }
 
-            const user = await User.create(input);
-            const token = signToken(user.firstName, user.email, user._id);
+            try {
+                console.log("✅ Creating new user...");
+                const user = new User(input);
+                await user.save();
+                console.log("✅ User created successfully:", user.email);
 
-            return { token, user };
+                const token = signToken(user.firstName, user.email, user._id);
+                return { token, user };
+            } catch (error) {
+                console.error("❌ Error saving user:", error);
+                throw new Error("Failed to create user.");
+            }
         },
 
         // 🔐 Update User Profile
