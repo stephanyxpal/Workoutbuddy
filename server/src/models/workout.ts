@@ -18,11 +18,11 @@ const WorkoutSchema = new Schema<IWorkout>(
         userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
         workoutType: { type: String, required: true, trim: true },
         duration: { type: Number, required: true },
-        caloriesBurned: { type: Number, required: false },
-        date: { type: Date, required: true, default: Date.now },
-        repetitions: { type: Number, required: false },
-        sets: { type: Number, required: false },
-        weightUsed: { type: Number, required: false },
+        caloriesBurned: { type: Number, default: 0 },  // 🔹 Default value prevents undefined issues
+        date: { type: Date, required: true, default: () => new Date() }, // 🔹 Ensures correct UTC time
+        repetitions: { type: Number, default: 0 },
+        sets: { type: Number, default: 0 },
+        weightUsed: { type: Number, default: 0 },
     },
     { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } } // ✅ Tracks timestamps
 );

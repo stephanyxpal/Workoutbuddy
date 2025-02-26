@@ -1,75 +1,54 @@
-import { Schema, model, type Document } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 import bcrypt from 'bcrypt';
 
 export interface UserDocument extends Document {
   firstName: string;
   lastName: string;
-  password: string;
   email: string;
-  city: string;
+  password: string;
+  city?: string;
   age?: number;
   weight?: number;
   height?: number;
-  gender?: String;
-  createdAt: Date;
+  gender?: string;
+  createdAt?: Date;
   isCorrectPassword(password: string): Promise<boolean>;
 }
 
 const userSchema = new Schema<UserDocument>({
-  firstName: {
-    type: String,
-    required: true,
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  email: { 
+    type: String, 
+    required: true, 
+    unique: true, 
+    match: [/.+@.+\..+/, 'Must be a valid email!'] 
   },
-  lastName: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    match: [/.+@.+\..+/, 'Must match an email address!'],
-  },
-  age: {
-    type: Number
-  },
-  weight: {
-    type: Number
-  },
-  height: {
-    type: Number
-  },
-  gender: {
-    type: String,
-    enum: ["Male", "Female", "Other"]
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  }
+  password: { type: String, required: true },
+  city: { type: String },
+  age: { type: Number },
+  weight: { type: Number },
+  height: { type: Number },
+  gender: { type: String, enum: ["Male", "Female", "Other"] },
+  createdAt: { type: Date, default: Date.now }
 }, {
-  toJSON: {
-    virtuals: true,
-  },
+  toJSON: { virtuals: true },
+  timestamps: true,  
 });
 
-// hash user password
-userSchema.pre('save', async function (next) {
-  if (this.isNew || this.isModified('password')) {
+// ✅ Hash password before saving
+userSchema.pre<UserDocument>('save', async function (next) {
+  if (this.isModified('password')) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
-
   next();
 });
 
-// custom method to compare and validate password for logging in
-userSchema.methods.isCorrectPassword = async function (password: string) {
-  return await bcrypt.compare(password, this.password);
+// ✅ Compare passwords for login
+userSchema.methods.isCorrectPassword = async function (password: string): Promise<boolean> {
+  return bcrypt.compare(password, this.password);
 };
-const User = model('User', userSchema)
+
+const User = model<UserDocument>('User', userSchema);
 export default User;

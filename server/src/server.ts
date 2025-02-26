@@ -8,6 +8,7 @@ import { typeDefs, resolvers } from './schemas/index.js';
 import { authenticateToken } from './services/auth.js';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';    
+import User from './models/user.js';
 
 dotenv.config(); // Load environment variables
 
