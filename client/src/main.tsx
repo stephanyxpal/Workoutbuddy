@@ -1,47 +1,52 @@
-import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import App from './App';
-import Home from './pages/Home';
-import NotFound from './pages/Notfound';
-import Activity from './pages/activity';
-import FitnessGoals from './pages/FitnessGoals';
-import Profile from './pages/Profile';
-
+import ReactDOM from "react-dom/client";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
+import App from "./App";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import NotFound from "./pages/Notfound";
+import Activity from "./pages/activity";
+import FitnessGoals from "./pages/FitnessGoals";
+import Profile from "./pages/Profile";
+import auth from "./utils/auth";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
     errorElement: <NotFound />,
     children: [
       {
         index: true,
-        element: <Home />
-      }, 
-      {
-        path: '/activity',
-        element: <Activity />
+        element: auth.loggedIn() ? <Home /> : <Navigate to='/login' replace />,
       },
       {
-        path: '/FitnessGoals',
-        element: <FitnessGoals />
+        path: "/activity",
+        element: <Activity />,
       },
       {
-        path: '/Profile',
-        element: <Profile />
+        path: "/FitnessGoals",
+        element: <FitnessGoals />,
       },
-
+      {
+        path: "/Profile",
+        element: <Profile />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
     ],
   },
 ]);
 
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById("root");
 
-if(rootElement) {
-  ReactDOM.createRoot(rootElement).render(
-    <RouterProvider router={router} />
-  );
-}
-else{
-  console.log("No root element")
+if (rootElement) {
+  ReactDOM.createRoot(rootElement).render(<RouterProvider router={router} />);
+} else {
+  console.log("No root element");
 }

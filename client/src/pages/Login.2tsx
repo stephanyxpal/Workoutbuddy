@@ -1,0 +1,148 @@
+import { useState, FormEvent, ChangeEvent } from "react";
+import {
+  Box,
+  Button,
+  Fieldset,
+  //FormControl,
+  //FormLabel,
+  Input,
+  //Text,
+  // VStack,
+  Stack,
+  // Alert,
+} from "@chakra-ui/react";
+import { Field } from "@chakra-ui/react";
+// import {
+//   NativeSelectField,
+//   NativeSelectRoot,
+// } from "@/components/ui/native-select";
+
+import Auth from "../utils/auth";
+//import { login } from "../api/authapi";
+
+const Login = () => {
+  const [loginData, setLoginData] = useState({
+    username: "",
+    password: "",
+  });
+  const [error, setError] = useState<string | null>(null); // State for error messages
+
+  const createAccount = () => {
+    window.location.href = "/Profile";
+  };
+
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    console.log(e.target);
+    setLoginData({
+      ...loginData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError(null);
+    try {
+      const data = await login(loginData);
+      Auth.login(data.token);
+    } catch (err: any) {
+      if (err) {
+        setError(err.message || "An error occurred"); // Display error from API response
+        console.error("Failed to login all error", err);
+        setError("Username or password is incorrect. Please try again.");
+      } else {
+        setError("An unexpected error occurred. Please try again.");
+        //console.error('Failed to l mesage', err.response.data.message);
+        console.log("Failed to login else error", err);
+      }
+      console.error("Failed to login outer loop", err);
+      setLoginData({
+        username: "",
+        password: "",
+      });
+    }
+  };
+
+  return (
+    <Fieldset.Root size='lg' maxW='md'>
+      <Stack>
+        <Fieldset.Legend>Contact details</Fieldset.Legend>
+        <Fieldset.HelperText>
+          Please provide your contact details below.
+        </Fieldset.HelperText>
+      </Stack>
+      <Fieldset.Content>
+        <Field.Label>Email</Field.Label>
+        <Input placeholder='me@example.com' />
+      </Fieldset.Content>
+    </Fieldset.Root>
+
+    // <Box
+    //   maxW='400px'
+    //   mx='auto'
+    //   mt={10}
+    //   p={6}
+    //   borderWidth='1px'
+    //   borderRadius='lg'
+    //   boxShadow='md'
+    // >
+    //   <form onSubmit={handleSubmit}>
+    //     <VStack>
+    //       <FormControl>
+    //         <FormLabel>Username</FormLabel>
+    //         <Input
+    //           type='text'
+    //           name='username'
+    //           value={loginData.username}
+    //           onChange={handleChange}
+    //         />
+    //       </FormControl>
+
+    //       <FormControl>
+    //         <FormLabel>Password</FormLabel>
+    //         <Input
+    //           type='password'
+    //           name='password'
+    //           value={loginData.password}
+    //           onChange={handleChange}
+    //         />
+    //       </FormControl>
+
+    //       {error && (
+    //         // <ChakraAlert status='error'>
+    //         //   <AlertIcon />
+    //         //   {error}
+    //         // </ChakraAlert>
+    //         <Alert.Root status='error'>
+    //           <Alert.Indicator />
+    //           <Alert.Content>
+    //             <Alert.Title>Invalid Fields</Alert.Title>
+    //             <Alert.Description>
+    //               Your form has some errors. Please fix them and try again.
+    //             </Alert.Description>
+    //           </Alert.Content>
+    //         </Alert.Root>
+    //       )}
+
+    //       <Button type='submit' colorScheme='teal' width='full'>
+    //         Sign In
+    //       </Button>
+
+    //       <Button
+    //         colorScheme='blue'
+    //         variant='outline'
+    //         width='full'
+    //         onClick={createAccount}
+    //       >
+    //         Create an Account
+    //       </Button>
+    //     </VStack>
+    //   </form>
+    // </Box>
+  );
+};
+
+export default Login;
