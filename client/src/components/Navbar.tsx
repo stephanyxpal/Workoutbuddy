@@ -23,7 +23,12 @@ const navLinks = [
 const Navbar: React.FC = () => {
   const { open, onOpen, onClose } = useDisclosure();
   const [isAuthenticated, setIsAuthenticated] = useState(Auth.loggedIn());
-
+  const handleAuthAction = () => {
+    if (isAuthenticated) {
+      Auth.logout();
+    }
+    setIsAuthenticated(!isAuthenticated);
+  };
   return (
     <Box bg='#213A82' px={4} color='white' borderRadius={2}>
       <Flex h={16} alignItems='center' justifyContent='space-between'>
@@ -45,10 +50,7 @@ const Navbar: React.FC = () => {
               </Button>
             </Link>
           ))}
-          <Button
-            colorScheme='yellow'
-            onClick={() => setIsAuthenticated(!isAuthenticated)}
-          >
+          <Button colorScheme='yellow' onClick={handleAuthAction}>
             {isAuthenticated ? "Logout" : "Login"}
           </Button>
         </Stack>
@@ -77,10 +79,7 @@ const Navbar: React.FC = () => {
                 <Button variant='ghost'>{link.name}</Button>
               </Link>
             ))}
-            <Button
-              colorScheme='yellow'
-              onClick={() => setIsAuthenticated(!isAuthenticated)}
-            >
+            <Button colorScheme='yellow' onClick={handleAuthAction}>
               {isAuthenticated ? "Logout" : "Login"}
             </Button>
           </Stack>
