@@ -29,7 +29,7 @@ const LoginForm = () => {
   const [showAlert, setShowAlert] = useState(false);
 
   const createAccount = () => {
-    window.location.href = "/Profile";
+    window.location.href = "/signupForm";
   };
 
   const handleChange = (

@@ -12,6 +12,7 @@ import Activity from "./pages/activity";
 import FitnessGoals from "./pages/FitnessGoals";
 import Profile from "./pages/Profile";
 import auth from "./utils/auth";
+import SignupForm from "./pages/Signup";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/signupForm",
+        element: <SignupForm />,
       },
     ],
   },

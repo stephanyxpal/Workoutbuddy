@@ -8,7 +8,7 @@ export interface UserInput {
     lastName: string;
     email: string;
     password: string;
-    city?: string;
+    city: string;
     age?: number;
     weight?: number;
     height?: number;
