@@ -96,6 +96,7 @@ type Mutation {
 
   # 🎯 Fitness Goals
   addGoal(input: GoalInput!): Goal
+  updateGoalProgress(id: ID!, progress: Int!): Goal
   deleteGoal(id: ID!): Boolean
 }
 `;

@@ -1,5 +1,4 @@
 # Workout Buddy
-Module 18
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
@@ -27,4 +26,33 @@ Workout Buddy is a fitness app designed to effortlessly log user workouts, track
 ## Deployed Site
 
 ## Features
+- Log workouts, times and goals in each text box
+- Save information to your account
+- View data saved on acitvity log
+- Responsive for mobile and desktop 
 
+## Technologies Used
+
+- React
+- TypeScript
+- React Router
+- Apollo Client
+- GraphQL
+- Express
+- MongoDB
+- Mongoose
+- JWT 
+
+## License
+This project is licensed under the [MIT License](https://opensource.org/license/mit)
+
+## Contributing
+Maurice Zuniga, Kaviyarasi Krishnan, Stephany Palacios, James Friel 
+
+## Questions
+Can contact us through Github: 
+
+[stephanyxpal](https://github.com/stephanyxpal)
+[jtfriel](https://github.com/jtfriel)
+[mauricek12d](https://github.com/mauricek12d)
+[gitkaviyarasi](https://github.com/pink727gitkaviyarasi)
