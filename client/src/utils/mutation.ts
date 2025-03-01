@@ -22,3 +22,13 @@ mutation addUser($input: UserInput!) {
   }
 }
 `;
+
+export const ADD_WORKOUT = gql`
+mutation AddWorkout($input: WorkoutInput!) {
+  addWorkout(input: $input) {
+    workoutType
+    weightUsed
+    userId
+  }
+}
+`;

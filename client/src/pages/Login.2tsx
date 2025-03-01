@@ -1,148 +1,239 @@
-import { useState, FormEvent, ChangeEvent } from "react";
 import {
   Box,
+  Flex,
+  Text,
   Button,
-  Fieldset,
-  //FormControl,
-  //FormLabel,
-  Input,
-  //Text,
-  // VStack,
-  Stack,
-  // Alert,
+  VStack,
+  Image,
+  HStack,
 } from "@chakra-ui/react";
-import { Field } from "@chakra-ui/react";
-// import {
-//   NativeSelectField,
-//   NativeSelectRoot,
-// } from "@/components/ui/native-select";
+import { Link, useNavigate } from "react-router-dom";
+import image1 from "../assets/image1.jpg"; // Ensure the image is in the correct folder
+import image2 from "../assets/image2.jpg"; // Ensure this exists
 
-import Auth from "../utils/auth";
-//import { login } from "../api/authapi";
-
-const Login = () => {
-  const [loginData, setLoginData] = useState({
-    username: "",
-    password: "",
-  });
-  const [error, setError] = useState<string | null>(null); // State for error messages
-
-  const createAccount = () => {
-    window.location.href = "/Profile";
-  };
-
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    console.log(e.target);
-    setLoginData({
-      ...loginData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError(null);
-    try {
-      const data = await login(loginData);
-      Auth.login(data.token);
-    } catch (err: any) {
-      if (err) {
-        setError(err.message || "An error occurred"); // Display error from API response
-        console.error("Failed to login all error", err);
-        setError("Username or password is incorrect. Please try again.");
-      } else {
-        setError("An unexpected error occurred. Please try again.");
-        //console.error('Failed to l mesage', err.response.data.message);
-        console.log("Failed to login else error", err);
-      }
-      console.error("Failed to login outer loop", err);
-      setLoginData({
-        username: "",
-        password: "",
-      });
-    }
-  };
+const Home = () => {
+  const navigate = useNavigate();
 
   return (
-    <Fieldset.Root size='lg' maxW='md'>
-      <Stack>
-        <Fieldset.Legend>Contact details</Fieldset.Legend>
-        <Fieldset.HelperText>
-          Please provide your contact details below.
-        </Fieldset.HelperText>
-      </Stack>
-      <Fieldset.Content>
-        <Field.Label>Email</Field.Label>
-        <Input placeholder='me@example.com' />
-      </Fieldset.Content>
-    </Fieldset.Root>
+    <Box minH='100vh'>
+      {/* Half-page Image */}
+      <Box h='50vh' bg='gray.200'>
+        <Image
+          src={image1}
+          alt='Fitness Tracker'
+          objectFit='cover'
+          w='100%'
+          h='100%'
+        />
+      </Box>
 
-    // <Box
-    //   maxW='400px'
-    //   mx='auto'
-    //   mt={10}
-    //   p={6}
-    //   borderWidth='1px'
-    //   borderRadius='lg'
-    //   boxShadow='md'
-    // >
-    //   <form onSubmit={handleSubmit}>
-    //     <VStack>
-    //       <FormControl>
-    //         <FormLabel>Username</FormLabel>
-    //         <Input
-    //           type='text'
-    //           name='username'
-    //           value={loginData.username}
-    //           onChange={handleChange}
-    //         />
-    //       </FormControl>
+      {/* Content Below Image */}
+      <Flex direction='column' align='center' textAlign='center' p={6}>
+        <Text fontSize='2xl' fontWeight='bold' color='blue.700' mb={4}>
+          It’s time to{" "}
+          <Text as='span' color='red.500'>
+            GET REAL
+          </Text>{" "}
+          about your health.
+        </Text>
 
-    //       <FormControl>
-    //         <FormLabel>Password</FormLabel>
-    //         <Input
-    //           type='password'
-    //           name='password'
-    //           value={loginData.password}
-    //           onChange={handleChange}
-    //         />
-    //       </FormControl>
+        {/* Previous Content */}
+        <VStack gap={6} maxW='600px'>
+          <Text fontSize='lg'>
+            Track your workouts, monitor progress, and achieve your fitness
+            goals with ease.
+          </Text>
+          <Button as={Link} to='/activity' colorScheme='blue' size='lg'>
+            Get Started
+          </Button>
+        </VStack>
+      </Flex>
 
-    //       {error && (
-    //         // <ChakraAlert status='error'>
-    //         //   <AlertIcon />
-    //         //   {error}
-    //         // </ChakraAlert>
-    //         <Alert.Root status='error'>
-    //           <Alert.Indicator />
-    //           <Alert.Content>
-    //             <Alert.Title>Invalid Fields</Alert.Title>
-    //             <Alert.Description>
-    //               Your form has some errors. Please fix them and try again.
-    //             </Alert.Description>
-    //           </Alert.Content>
-    //         </Alert.Root>
-    //       )}
+      {/* Buttons for Navigation */}
+      <HStack gap={4} justify='center' mt={6}>
+        <Button
+          colorScheme='blue'
+          size='lg'
+          onClick={() => navigate("/activity")}
+        >
+          Log Workout
+        </Button>
+        <Button
+          colorScheme='green'
+          size='lg'
+          onClick={() => navigate("/activity")}
+        >
+          View History
+        </Button>
+      </HStack>
 
-    //       <Button type='submit' colorScheme='teal' width='full'>
-    //         Sign In
-    //       </Button>
-
-    //       <Button
-    //         colorScheme='blue'
-    //         variant='outline'
-    //         width='full'
-    //         onClick={createAccount}
-    //       >
-    //         Create an Account
-    //       </Button>
-    //     </VStack>
-    //   </form>
-    // </Box>
+      {/* Progress Section */}
+      <Box
+        p={4}
+        borderRadius='lg'
+        boxShadow='md'
+        bg='gray.50'
+        textAlign='center'
+        mt={6}
+      >
+        <Image
+          src={image2}
+          alt='Progress Chart'
+          borderRadius='md'
+          boxShadow='sm'
+          mb={3}
+        />
+        <Text fontSize='2xl' fontWeight='semibold'>
+          Your Progress 📊
+        </Text>
+        <Text fontSize='lg' color='gray.600' mt={2}>
+          🔥 Total Calories Burned: <strong>3200</strong>
+        </Text>
+        <Text fontSize='lg' color='gray.600'>
+          ⏳ Total Workouts Logged: <strong>15</strong>
+        </Text>
+        <Text fontSize='lg' color='gray.600'>
+          🏆 Streak: <strong>7 Days</strong>
+        </Text>
+      </Box>
+    </Box>
   );
 };
 
-export default Login;
+export default Home;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import {
+  Box,
+  Button,
+  Text,
+  VStack,
+  HStack,
+  Icon,
+  Divider,
+} from "@chakra-ui/react";
+import { FaRunning, FaHistory, FaChartLine } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+
+const Home = () => {
+  const navigate = useNavigate();
+
+  return (
+    <Box maxW='900px' mx='auto' p={6} textAlign='center'>
+      {/* Welcome Section */}
+      <Text fontSize='3xl' fontWeight='bold' mb={2}>
+        Welcome to Fitness Tracker! 🏋️‍♂️
+      </Text>
+      <Text fontSize='lg' color='gray.600' mb={6}>
+        Track your workouts, monitor progress, and stay motivated!
+      </Text>
+
+      {/* Navigation Buttons */}
+      <HStack spacing={4} justify='center'>
+        <Button
+          leftIcon={<Icon as={FaRunning} />}
+          colorScheme='blue'
+          size='lg'
+          onClick={() => navigate("/log-workout")}
+        >
+          Log Workout
+        </Button>
+        <Button
+          leftIcon={<Icon as={FaHistory} />}
+          colorScheme='green'
+          size='lg'
+          onClick={() => navigate("/history")}
+        >
+          View History
+        </Button>
+      </HStack>
+
+      <Divider my={6} />
+
+      {/* User Progress Summary */}
+      <Box p={4} borderRadius='lg' boxShadow='md' bg='gray.50'>
+        <Text fontSize='2xl' fontWeight='semibold'>
+          Your Progress 📊
+        </Text>
+        <Text fontSize='lg' color='gray.600' mt={2}>
+          🔥 Total Calories Burned: <strong>3200</strong>
+        </Text>
+        <Text fontSize='lg' color='gray.600'>
+          ⏳ Total Workouts Logged: <strong>15</strong>
+        </Text>
+        <Text fontSize='lg' color='gray.600'>
+          🏆 Streak: <strong>7 Days</strong>
+        </Text>
+      </Box>
+
+      <Button
+        mt={6}
+        colorScheme='purple'
+        size='lg'
+        leftIcon={<Icon as={FaChartLine} />}
+        onClick={() => navigate("/progress")}
+      >
+        View Detailed Stats
+      </Button>
+    </Box>
+  );
+};
+
+export default Home;
+
+// import React from "react";
+
+// function Home() {
+//   return <div>Home</div>;
+// }
+
+// export default Home;
+// import { Box, Button, VStack, Heading } from "@chakra-ui/react";
+// import { useNavigate } from "react-router-dom";
+
+// const Home = () => {
+//     const navigate = useNavigate();
+
+//   return (
+//    <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="100vh">
+//      <Heading mb={6}>Welcome to Your Fitness App</Heading>
+//     <VStack>
+//        <Button colorScheme="blue" width="200px" onClick={() => navigate("/activity")}>
+//         Activity
+//        </Button>
+//        <Button colorScheme="blue" width="200px" onClick={() => navigate("/fitness-goals")}>
+//          Fitness Goals
+//        </Button>
+//        <Button colorScheme="blue" width="200px" onClick={() => navigate("/workout-progress")}>
+//          Workout Progress
+//        </Button>
+//        <Button colorScheme="blue" width="200px" onClick={() => navigate("/my-profile")}>
+//          My Profile
+//        </Button>
+//      </VStack>
+//    </Box>
+// );
+// };
+
+// export default Home;

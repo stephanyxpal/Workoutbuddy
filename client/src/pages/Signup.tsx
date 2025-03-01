@@ -110,7 +110,7 @@ const SignupForm = () => {
       alert("Signup successful!");
     } catch (err) {
       console.error(err);
-      setShowAlert(true);
+      //setShowAlert(true);
     }
   };
 
