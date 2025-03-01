@@ -16,7 +16,7 @@ const resolvers = {
             if (!context.user) {
                 throw new AuthenticationError('You must be logged in to view this information.');
             }
-            return await User.findById(context.user._id).select('-__v -password');
+            return await User.findById(context.user._id).select('-__v -password').populate('goals');
         },
 
         // 🔐 Fetch workouts for logged-in user
@@ -139,40 +139,26 @@ const resolvers = {
             }
             await Goal.findByIdAndDelete(id);
             return true;
-        },  
+        },
 
-                // 🎯 Update Goal Progress
-                updateGoalProgress: async (_parent: any, { id, progress }: any, context: any) => {
-                    if (!context.user) {
-                        throw new AuthenticationError('You must be logged in!');
-                    }
-                
-                    // Ensure the provided ID is a valid MongoDB ObjectId
-                    if (!mongoose.Types.ObjectId.isValid(id)) {
-                        throw new Error('Invalid Goal ID format.');
-                    }
-                
-                    const goal = await Goal.findById(id);
-                    if (!goal) {
-                        throw new Error('Goal not found.');
-                    }
-                
-                    // Ensure only the goal's owner can update it
-                    if (goal.userId.toString() !== context.user._id) {
-                        throw new AuthenticationError('Unauthorized');
-                    }
-                
-                    // Update the progress and set completed to true if progress reaches 100%
-                    goal.progress = progress;
-                    goal.completed = progress >= 100;
-                
-                    await goal.save();
-                
-                    return goal;
-                },
-                
-                },
-        }
+        // 🎯 Update Goal Progress
+        updateGoalProgress: async (_parent: any, { id, progress }: any, context: any) => {
+            if (!context.user) {
+                throw new AuthenticationError('You must be logged in!');
+            }
 
+            const goal = await Goal.findById(id);
+            if (!goal || goal.userId.toString() !== context.user._id) {
+                throw new AuthenticationError('Unauthorized');
+            }
+
+            goal.progress = progress;
+            goal.completed = progress >= 100; // ✅ Auto-mark as completed if progress reaches 100%
+            await goal.save();
+
+            return goal;
+        },
+    }
+}
 
 export default resolvers;

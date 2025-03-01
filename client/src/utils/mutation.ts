@@ -32,3 +32,12 @@ mutation AddWorkout($input: WorkoutInput!) {
   }
 }
 `;
+
+export const ADD_GOAL = gql`
+mutation AddGoal($input: GoalInput!) {
+  addGoal(input: $input) {
+    userId
+    goalText
+  }
+}
+`
