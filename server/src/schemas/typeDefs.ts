@@ -14,6 +14,7 @@ type User {
   height: Int
   gender: String
   createdAt: Date
+  goals:[Goal]
 }
 
 # 🔑 Authentication Payload
