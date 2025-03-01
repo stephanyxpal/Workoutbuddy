@@ -2,6 +2,7 @@ import User from '../models/user.js';
 import Workout from '../models/workout.js';
 import Goal from '../models/goal.js';
 import { signToken, AuthenticationError } from '../services/auth.js';
+import mongoose from 'mongoose';
 
 interface LoginUserArgs {
     email: string;
@@ -145,20 +146,33 @@ const resolvers = {
                     if (!context.user) {
                         throw new AuthenticationError('You must be logged in!');
                     }
-            
+                
+                    // Ensure the provided ID is a valid MongoDB ObjectId
+                    if (!mongoose.Types.ObjectId.isValid(id)) {
+                        throw new Error('Invalid Goal ID format.');
+                    }
+                
                     const goal = await Goal.findById(id);
-                    if (!goal || goal.userId.toString() !== context.user._id) {
+                    if (!goal) {
+                        throw new Error('Goal not found.');
+                    }
+                
+                    // Ensure only the goal's owner can update it
+                    if (goal.userId.toString() !== context.user._id) {
                         throw new AuthenticationError('Unauthorized');
                     }
-            
+                
+                    // Update the progress and set completed to true if progress reaches 100%
                     goal.progress = progress;
-                    goal.completed = progress >= 100; // ✅ Auto-mark as completed if progress reaches 100%
+                    goal.completed = progress >= 100;
+                
                     await goal.save();
-            
+                
                     return goal;
                 },
+                
+                },
         }
-    }
 
 
 export default resolvers;

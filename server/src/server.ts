@@ -12,6 +12,8 @@ import User from './models/user.js';
 
 dotenv.config(); // Load environment variables
 
+console.log("🔍 MONGODB_URI:", process.env.MONGODB_URI);
+
 // Define __filename and __dirname for ES6 modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
