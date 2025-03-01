@@ -2,6 +2,7 @@ import User from '../models/user.js';
 import Workout from '../models/workout.js';
 import Goal from '../models/goal.js';
 import { signToken, AuthenticationError } from '../services/auth.js';
+import mongoose from 'mongoose';
 
 interface LoginUserArgs {
     email: string;
@@ -159,6 +160,5 @@ const resolvers = {
         },
     }
 }
-
 
 export default resolvers;
