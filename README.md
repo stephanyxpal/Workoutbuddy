@@ -7,13 +7,17 @@ Workout Buddy is a fitness app designed to effortlessly log user workouts, track
 
 ## Table of Contents
 
-- [Usage](#usage)
-- [Deployed Site](#deployed-site) 
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [License](#license)
-- [Contributing](#contributing)
-- [Questions](#questions)
+- [Workout Buddy](#workout-buddy)
+  - [Description](#description)
+  - [Table of Contents](#table-of-contents)
+  - [Usage](#usage)
+  - [Deployed Site](#deployed-site)
+  - [Features](#features)
+  - [Technologies Used](#technologies-used)
+  - [License](#license)
+  - [Contributing](#contributing)
+- [Images :](#images-)
+  - [Questions](#questions)
 
 ## Usage
 
@@ -48,6 +52,10 @@ This project is licensed under the [MIT License](https://opensource.org/license/
 
 ## Contributing
 Maurice Zuniga, Kaviyarasi Krishnan, Stephany Palacios, James Friel 
+
+# Images :
+Photo by <a href="https://unsplash.com/@risennnnn?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Risen Wang</a> on <a href="https://unsplash.com/photos/gym-equipment-inside-room-20jX9b35r_M?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+      
 
 ## Questions
 Can contact us through Github: 
