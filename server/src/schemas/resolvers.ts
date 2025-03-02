@@ -120,6 +120,28 @@ const resolvers = {
             return true;
         },
 
+        updateWorkout: async (_parent: any, { id, input }: any, context: any) => {
+            if (!context.user) {
+                throw new AuthenticationError('You must be logged in!');
+            }
+
+            const workout = await Workout.findById(id);
+
+            if (!workout || workout.userId.toString() !== context.user._id) {
+                throw new AuthenticationError('Unauthorized');
+            }
+
+            // Update the workout with the provided fields
+            const updatedWorkout = await Workout.findByIdAndUpdate(
+                id,
+                { $set: { ...input } },
+                { new: true, runValidators: true } // Returns the updated document and runs validation
+            );
+
+            return updatedWorkout;
+        },
+
+
         // 🎯 Add a Fitness Goal
         addGoal: async (_parent: any, { input }: any, context: any) => {
             if (!context.user) {

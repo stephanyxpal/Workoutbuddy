@@ -15,6 +15,7 @@
     "@chakra-ui/icons": "^2.0.6",
     "@chakra-ui/number-input": "^2.1.2",
     "@chakra-ui/react": "^3.8.1",
+    "@chakra-ui/table": "^2.1.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "framer-motion": "^12.4.7",

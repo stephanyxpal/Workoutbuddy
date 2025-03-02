@@ -41,3 +41,20 @@ mutation AddGoal($input: GoalInput!) {
   }
 }
 `
+export const DELETE_WORKOUT = gql`
+mutation Mutation($deleteWorkoutId: ID!) {
+  deleteWorkout(id: $deleteWorkoutId)
+}
+`
+
+export const UPDATE_WORKOUT = gql`
+mutation Mutation($updateWorkoutId: ID!, $input: updWorkoutInput) {
+  updateWorkout(id: $updateWorkoutId, input: $input) {
+    workoutType
+    weightUsed
+    repetitions
+    duration
+    caloriesBurned
+  }
+}
+`

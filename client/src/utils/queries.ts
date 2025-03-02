@@ -16,4 +16,18 @@ query Me {
     city
     age
   }
+}`;
+
+export const Workouts = gql`
+query Workouts {
+  workouts {
+    workoutType
+    weightUsed
+    sets
+    repetitions
+    id
+    duration
+    date
+    caloriesBurned
+  }
 }`
