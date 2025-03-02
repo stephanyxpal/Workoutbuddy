@@ -70,12 +70,17 @@ input WorkoutInput {
   weightUsed: Int
 }
 
+input updWorkoutInput {
+    duration: Int!
+    caloriesBurned: Int!
+}
 # ✅ Add GoalInput
 input GoalInput {
   goalText: String!
   targetDate: Date!
   startDate: Date!
 }
+
 
 # 🔍 Queries
 type Query {
@@ -94,6 +99,7 @@ type Mutation {
   # 🏋️‍♂️ Workouts
   addWorkout(input: WorkoutInput!): Workout
   deleteWorkout(id: ID!): Boolean
+  updateWorkout(id: ID!,input: updWorkoutInput):Workout
 
   # 🎯 Fitness Goals
   addGoal(input: GoalInput!): Goal
