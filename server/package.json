@@ -10,14 +10,13 @@
     "watch": "nodemon",
     "dev": "nodemon --exec node --loader ts-node/esm src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed":
-      "node --loader ts-node/esm src/seeds/seeds.ts"
+    "seed": "node --loader ts-node/esm src/seeds/seeds.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "apollo-server-express": "^3.13.0",
+    "@apollo/server": "^4.11.3",
     "bcrypt": "^4.0.1",
     "express": "^4.19.2",
     "graphql": "^16.10.0",
