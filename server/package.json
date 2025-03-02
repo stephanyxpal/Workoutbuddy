@@ -11,7 +11,7 @@
     "dev": "nodemon --exec node --loader ts-node/esm src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed":
-      "node --loader ts-node/esm src/seed.ts"
+      "node --loader ts-node/esm src/seeds/seeds.ts"
   },
   "keywords": [],
   "author": "",
