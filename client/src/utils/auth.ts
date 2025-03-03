@@ -31,6 +31,7 @@ class AuthService {
             return false;
         } catch (err) {
             return false;
+            console.log(err)
         }
     }
 

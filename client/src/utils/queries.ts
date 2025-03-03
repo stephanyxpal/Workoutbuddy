@@ -4,8 +4,12 @@ export const Me = gql`
 query Me {
   me {
     goals {
-    
-      goalText
+  
+      completed
+    goalText
+    progress
+    startDate
+    targetDate
     
     }
     weight

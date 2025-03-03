@@ -3,28 +3,15 @@ import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutation";
 import type { UserLogin } from "../models/User";
 import { useState, FormEvent, ChangeEvent } from "react";
-import {
-  Box,
-  Field,
-  Input,
-  Stack,
-  //Fieldset,
-  Button,
-  Card,
-} from "@chakra-ui/react";
+import { Box, Field, Input, Stack, Button, Card } from "@chakra-ui/react";
 import Auth from "../utils/auth";
 
 const LoginForm = () => {
-  //   const [loginData, setLoginData] = useState({
-  //     email: "",
-  //     password: "",
-  //   });
-  //const [error, setError] = useState<string | null>(null); // State for error messages
   const [userFormData, setUserFormData] = useState<UserLogin>({
     email: "",
     password: "",
   });
-  // const [validated] = useState(false);
+
   const [login, { error, data }] = useMutation(LOGIN_USER);
   const [showAlert, setShowAlert] = useState(false);
 
@@ -51,7 +38,7 @@ const LoginForm = () => {
       e.preventDefault();
       e.stopPropagation();
     }
-    //setError(null);
+
     try {
       const { data } = await login({
         variables: { ...userFormData },
@@ -62,17 +49,11 @@ const LoginForm = () => {
       console.error(err);
       setShowAlert(true);
       if (err) {
-        // setError(err.message || "An error occurred"); // Display error from API response
         console.error("Failed to login all error", err);
         setShowAlert(true);
         console.log(data);
-        // setError("Username or password is incorrect. Please try again.");
-      } //else {
-      // setError("An unexpected error occurred. Please try again.");
-      //console.error('Failed to l mesage', err.response.data.message);
-      // console.log("Failed to login else error", err);
+      }
     }
-    //console.error("Failed to login outer loop", err);
     setUserFormData({
       email: "",
       password: "",
@@ -129,11 +110,21 @@ const LoginForm = () => {
             </Stack>
           </Card.Body>
           <Card.Footer justifyContent='space-around'>
-            <Button type='submit' variant='solid' bg='#213A82'>
+            <Button
+              type='submit'
+              variant='solid'
+              bg='#213A82'
+              _hover={{ bg: "#182B62" }}
+            >
               Sign in
             </Button>
             {/* Create An Account{" "} */}
-            <Button variant='solid' bg='#213A82' onClick={createAccount}>
+            <Button
+              variant='solid'
+              bg='#213A82'
+              onClick={createAccount}
+              _hover={{ bg: "#182B62" }}
+            >
               Create Account
             </Button>
           </Card.Footer>

@@ -1,6 +1,6 @@
 import { useQuery, useMutation } from "@apollo/client";
 import { Spinner, Text, Box, Center } from "@chakra-ui/react";
-import { Input, Button, IconButton, Flex, HStack } from "@chakra-ui/react";
+import { Input, IconButton, Flex, HStack } from "@chakra-ui/react";
 import { useState } from "react";
 import {
   Table,
@@ -10,8 +10,6 @@ import {
   Th,
   Td,
   TableContainer,
-  TableCaption,
-  Tfoot,
 } from "@chakra-ui/table";
 import { Workouts } from "../utils/queries";
 import { DeleteIcon, EditIcon, CheckIcon, CloseIcon } from "@chakra-ui/icons";

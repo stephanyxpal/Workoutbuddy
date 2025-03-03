@@ -1,19 +1,11 @@
-import {
-  Box,
-  Flex,
-  Text,
-  Button,
-  VStack,
-  Image,
-  HStack,
-} from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Box, Flex, Text, Button, VStack, Image } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import image1 from "../assets/image1.jpg";
 import image2 from "../assets/image2.jpg";
 import Auth from "../utils/auth";
 
 const Home = () => {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -50,7 +42,7 @@ const Home = () => {
             goals with ease.
           </Text>
           <Button as={Link} to='/getactivity' colorScheme='blue' size='lg'>
-            Get Started
+            View Details
           </Button>
           <Text fontSize='2xl' fontWeight='semibold'>
             Your Progress 📊
