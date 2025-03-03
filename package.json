@@ -10,7 +10,8 @@
     "install": "cd server && npm i && cd ../client && npm i",
     "render-build": "npm install && npm run build",
     "seed": "node --loader ts-node/esm server/src/seed.ts",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "build": "cd client && npm run build && cd ../server && npm run build"
   },
   "keywords": [],
   "author": "",
