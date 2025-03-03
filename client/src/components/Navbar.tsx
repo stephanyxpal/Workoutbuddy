@@ -79,11 +79,12 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <IconButton
             size='md'
-            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+            // icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
             aria-label='Open Menu'
             display={{ md: "none" }}
             onClick={isOpen ? onClose : onOpen}
             ml={2}
+            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
           />
         </Flex>
       </Flex>
