@@ -2,13 +2,13 @@ import express from 'express';
 import path from 'node:path';
 import type { Request, Response } from 'express';
 import db from './config/connection.js'
-import { ApolloServer } from '@apollo/server'; 
+import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { typeDefs, resolvers } from './schemas/index.js';
 import { authenticateToken } from './services/auth.js';
 import { fileURLToPath } from 'url';
-import dotenv from 'dotenv';    
-import User from './models/user.js';
+import dotenv from 'dotenv';
+//import User from './models/user.js';
 
 dotenv.config(); // Load environment variables
 
@@ -19,10 +19,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Create Apollo Server
-const server = new ApolloServer({ 
+const server = new ApolloServer({
     typeDefs,
     resolvers
-}); 
+});
 
 const startApolloServer = async () => {
     await server.start();

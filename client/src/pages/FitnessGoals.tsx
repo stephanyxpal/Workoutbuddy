@@ -8,12 +8,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-} from "@chakra-ui/form-control";
+import { FormControl, FormErrorMessage } from "@chakra-ui/form-control";
 
 import { FormEvent, ChangeEvent, useState } from "react";
 import { useMutation } from "@apollo/client";
@@ -114,7 +109,7 @@ const FitnessGoals: React.FC = () => {
       <Heading size='lg' textAlign='center' mb={4}>
         Set Your Fitness Goal
       </Heading>
-      <VStack align='stretch' spacing={4}>
+      <VStack align='stretch' gap={4}>
         <FormControl isInvalid={!!errors.goalText}>
           <Text fontWeight='bold' mb={1}>
             Describe your fitness goal
@@ -160,7 +155,15 @@ const FitnessGoals: React.FC = () => {
           </FormErrorMessage>
         </FormControl>
 
-        <Button colorScheme='blue' onClick={handleSubmit} width='full'>
+        <Button
+          // colorScheme='blue'
+          onClick={handleSubmit}
+          width='full'
+          variant='ghost'
+          color='white'
+          bg='#213A82'
+          _hover={{ bg: "#182B62" }}
+        >
           Save Goal
         </Button>
       </VStack>

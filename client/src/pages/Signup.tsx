@@ -7,6 +7,7 @@ import {
   HStack,
   Button,
   Text,
+  Center,
 } from "@chakra-ui/react";
 import { createListCollection } from "@chakra-ui/react";
 import {
@@ -44,7 +45,7 @@ const SignupForm = () => {
     ],
   });
 
-  const [addUser, { error, data }] = useMutation(ADD_USER);
+  const [addUser, { error }] = useMutation(ADD_USER);
 
   // Handle input changes
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -81,6 +82,7 @@ const SignupForm = () => {
     e.preventDefault();
     const form = e.currentTarget;
     console.log("Form submitted");
+    console.log(form);
 
     // Basic validation
     const newErrors: { [key: string]: string } = {};
@@ -91,10 +93,6 @@ const SignupForm = () => {
     if (!userFormData.city.trim()) newErrors.city = "Required";
     if (!userFormData.age || isNaN(Number(userFormData.age)))
       newErrors.age = "Must be a number";
-    // if (!userFormData.weight  || isNaN(Number(userFormData.weight)))
-    //   newErrors.weight = "Must be a number";
-    // if (!userFormData.height || isNaN(Number(userFormData.height)))
-    //   newErrors.height = "Must be a number";
     if (!userFormData.gender) newErrors.gender = "Required";
     console.log(userFormData, newErrors);
     setErrors(newErrors);
@@ -116,7 +114,7 @@ const SignupForm = () => {
 
   return (
     <>
-      <Text fontSize='2xl' fontWeight='bold' textAlign='center' mb={4}>
+      <Text fontSize='2xl' fontWeight='bold' textAlign='center' mb={4} mt={5}>
         Sign Up
       </Text>
       <Box
@@ -129,33 +127,37 @@ const SignupForm = () => {
       >
         <Stack gap={4}>
           <form onSubmit={handleSubmit} noValidate>
-            <Field.Root orientation='horizontal' required>
-              <Field.Label>First Name</Field.Label>
-              <Input
-                type='text'
-                name='firstName'
-                flex='1'
-                value={userFormData.firstName}
-                onChange={handleInputChange}
-              />
-            </Field.Root>
-            {errors.firstName && (
-              <Text color='red.500'>{errors.firstName}</Text>
-            )}
-
-            <Field.Root orientation='horizontal' required>
-              <Field.Label>Last Name</Field.Label>
-              <Input
-                type='text'
-                name='lastName'
-                flex='1'
-                value={userFormData.lastName}
-                onChange={handleInputChange}
-              />
-            </Field.Root>
-            {errors.lastName && <Text color='red.500'>{errors.lastName}</Text>}
-
-            <Field.Root orientation='horizontal' required>
+            <Stack gap={4}>
+              <Field.Root orientation='horizontal' required>
+                <Field.Label>First Name</Field.Label>
+                <Input
+                  type='text'
+                  name='firstName'
+                  flex='1'
+                  value={userFormData.firstName}
+                  onChange={handleInputChange}
+                />
+              </Field.Root>
+              {errors.firstName && (
+                <Text color='red.500'>{errors.firstName}</Text>
+              )}
+            </Stack>
+            <Stack gap={4}>
+              <Field.Root orientation='horizontal' required mt={6}>
+                <Field.Label>Last Name</Field.Label>
+                <Input
+                  type='text'
+                  name='lastName'
+                  flex='1'
+                  value={userFormData.lastName}
+                  onChange={handleInputChange}
+                />
+              </Field.Root>
+              {errors.lastName && (
+                <Text color='red.500'>{errors.lastName}</Text>
+              )}
+            </Stack>
+            <Field.Root orientation='horizontal' required mt={6}>
               <Field.Label>Email</Field.Label>
               <Input
                 name='email'
@@ -167,7 +169,7 @@ const SignupForm = () => {
             </Field.Root>
             {errors.email && <Text color='red.500'>{errors.email}</Text>}
 
-            <Field.Root orientation='horizontal' required>
+            <Field.Root orientation='horizontal' required mt={6}>
               <Field.Label>Password</Field.Label>
               <Input
                 type='password'
@@ -179,7 +181,7 @@ const SignupForm = () => {
             </Field.Root>
             {errors.password && <Text color='red.500'>{errors.password}</Text>}
 
-            <Field.Root orientation='horizontal' required>
+            <Field.Root orientation='horizontal' required mt={6}>
               <Field.Label>Location</Field.Label>
               <Input
                 type='text'
@@ -191,7 +193,7 @@ const SignupForm = () => {
             </Field.Root>
             {errors.city && <Text color='red.500'>{errors.city}</Text>}
 
-            <Field.Root orientation='horizontal' required>
+            <Field.Root orientation='horizontal' required mt={6}>
               <Field.Label>Age</Field.Label>
               <Input
                 type='text'
@@ -203,13 +205,13 @@ const SignupForm = () => {
             </Field.Root>
             {errors.age && <Text color='red.500'>{errors.age}</Text>}
 
-            <HStack gap={3} alignItems='center'>
+            <HStack gap={3} alignItems='center' mt={6}>
               <Text fontSize='md' fontWeight='medium'>
                 Gender
               </Text>
               <SelectRoot
                 collection={genderList}
-                size='sm'
+                // size='sm'
                 flex='1'
                 onValueChange={(e) => handleGenderChange(e.value[0])}
               >
@@ -226,10 +228,19 @@ const SignupForm = () => {
               </SelectRoot>
             </HStack>
             {errors.gender && <Text color='red.500'>{errors.gender}</Text>}
-
-            <Button type='submit' variant='solid' bg='#213A82' color='white'>
-              Submit
-            </Button>
+            <Center>
+              <Button
+                type='submit'
+                variant='solid'
+                bg='#213A82'
+                color='white'
+                _hover={{ bg: "#182B62" }}
+                padding={4}
+                mt={10}
+              >
+                Submit
+              </Button>
+            </Center>
           </form>
         </Stack>
         {error && (
