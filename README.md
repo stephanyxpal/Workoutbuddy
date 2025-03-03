@@ -21,13 +21,29 @@ Workout Buddy is a fitness app designed to effortlessly log user workouts, track
 
 ## Usage
 
-1. Start the development server:
+1. ***Clone the repository:***
    ```bash
-   npm run develop
+   git clone https://github.com/stephanyxpal/Workoutbuddy.git
    ```
-2. Open your browser and navigate to `http://localhost:3000`.
+2. ***Install Dependencies:*** 
+   ```bash
+   cd server && npm install && npm run build && npm run seed
+   cd ../client && npm install && npm run build
+   ```
+
+3. ***Start the Development Server***
+   ```bash
+   npm run start
+
+4. ***Open Browser and navigate to:***
+   ```bash
+   http://localhost:3000     
+
 
 ## Deployed Site
+
+https://workoutbuddy-f6uy.onrender.com
+
 
 ## Features
 - Log workouts, times and goals in each text box
