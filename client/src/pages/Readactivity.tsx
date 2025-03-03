@@ -16,6 +16,7 @@ import {
 import { Workouts } from "../utils/queries";
 import { DeleteIcon, EditIcon, CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import { DELETE_WORKOUT, UPDATE_WORKOUT } from "../utils/mutation";
+import Auth from "../utils/auth";
 
 const ReadActivities = () => {
   const { loading, error, data, refetch } = useQuery(Workouts);
@@ -66,6 +67,12 @@ const ReadActivities = () => {
   // Update function
   const handleUpdate = async (id: string) => {
     console.log("trying to update");
+
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
     await updateWorkout({
       variables: {
         updateWorkoutId: id, // Correct ID variable name

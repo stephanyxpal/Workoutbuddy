@@ -1,15 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Flex,
-  //HStack,
   IconButton,
   Button,
   useDisclosure,
   Stack,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-
 import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 
@@ -20,15 +18,19 @@ const navLinks = [
   { name: "Profile", path: "/profile" },
 ];
 
-const Navbar: React.FC = () => {
-  const { open, onOpen, onClose } = useDisclosure();
-  const [isAuthenticated, setIsAuthenticated] = useState(Auth.loggedIn());
-  const handleAuthAction = () => {
-    if (isAuthenticated) {
-      Auth.logout();
-    }
-    setIsAuthenticated(!isAuthenticated);
+const Navbar = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    setIsAuthenticated(Auth.loggedIn());
+  }, []);
+
+  const handleLogout = () => {
+    Auth.logout();
+    setIsAuthenticated(false);
   };
+
   return (
     <Box bg='#213A82' px={4} color='white' borderRadius={2}>
       <Flex h={16} alignItems='center' justifyContent='space-between'>
@@ -38,50 +40,64 @@ const Navbar: React.FC = () => {
         </Box>
 
         {/* Desktop Menu */}
-        <Stack as='nav' direction='row' display={{ base: "none", md: "flex" }}>
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.path}
-              style={{ textDecoration: "none" }}
+        <Flex alignItems='center'>
+          {isAuthenticated ? (
+            <Stack
+              as='nav'
+              direction='row'
+              gap={4}
+              display={{ base: "none", md: "flex" }}
             >
+              {navLinks.map((link) => (
+                <Link key={link.name} to={link.path}>
+                  <Button
+                    variant='ghost'
+                    color='white'
+                    _hover={{ bg: "#182B62" }}
+                  >
+                    {link.name}
+                  </Button>
+                </Link>
+              ))}
+              <Button
+                variant='ghost'
+                color='white'
+                _hover={{ bg: "#182B62" }}
+                onClick={handleLogout}
+              >
+                Logout
+              </Button>
+            </Stack>
+          ) : (
+            <Link to='/login'>
               <Button variant='ghost' color='white' _hover={{ bg: "#182B62" }}>
-                {link.name}
+                Login
               </Button>
             </Link>
-          ))}
-          <Button colorScheme='yellow' onClick={handleAuthAction}>
-            {isAuthenticated ? "Logout" : "Login"}
-          </Button>
-        </Stack>
+          )}
 
-        {/* Mobile Menu Button */}
-        <IconButton
-          size='md'
-          children={open ? <CloseIcon /> : <HamburgerIcon />}
-          aria-label='Open Menu'
-          display={{ md: "none" }}
-          onClick={open ? onClose : onOpen}
-        />
+          {/* Mobile Menu Button */}
+          <IconButton
+            size='md'
+            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+            aria-label='Open Menu'
+            display={{ md: "none" }}
+            onClick={isOpen ? onClose : onOpen}
+            ml={2}
+          />
+        </Flex>
       </Flex>
 
       {/* Mobile Menu */}
-      {open && (
+      {isOpen && isAuthenticated && (
         <Box pb={4} display={{ md: "none" }}>
-          <Stack as='nav'>
+          <Stack as='nav' gap={4}>
             {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                onClick={onClose}
-                style={{ textDecoration: "none" }}
-              >
+              <Link key={link.name} to={link.path} onClick={onClose}>
                 <Button variant='ghost'>{link.name}</Button>
               </Link>
             ))}
-            <Button colorScheme='yellow' onClick={handleAuthAction}>
-              {isAuthenticated ? "Logout" : "Login"}
-            </Button>
+            <Button onClick={handleLogout}>Logout</Button>
           </Stack>
         </Box>
       )}

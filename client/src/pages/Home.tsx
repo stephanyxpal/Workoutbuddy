@@ -8,11 +8,18 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
-import image1 from "../assets/image1.jpg"; // Ensure the image is in the correct folder
-import image2 from "../assets/image2.jpg"; // Ensure this exists
+import image1 from "../assets/image1.jpg";
+import image2 from "../assets/image2.jpg";
+import Auth from "../utils/auth";
 
 const Home = () => {
   const navigate = useNavigate();
+
+  const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+  if (!token) {
+    return false;
+  }
 
   return (
     <Box minH='100vh'>
@@ -42,7 +49,7 @@ const Home = () => {
             Track your workouts, monitor progress, and achieve your fitness
             goals with ease.
           </Text>
-          <Button as={Link} to='/activity' colorScheme='blue' size='lg'>
+          <Button as={Link} to='/getactivity' colorScheme='blue' size='lg'>
             Get Started
           </Button>
           <Text fontSize='2xl' fontWeight='semibold'>
