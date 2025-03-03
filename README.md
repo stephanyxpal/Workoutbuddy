@@ -71,6 +71,17 @@ Maurice Zuniga, Kaviyarasi Krishnan, Stephany Palacios, James Friel
 
 # Images :
 Photo by <a href="https://unsplash.com/@risennnnn?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Risen Wang</a> on <a href="https://unsplash.com/photos/gym-equipment-inside-room-20jX9b35r_M?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+
+## Screenshots
+
+### Home Page
+![Home Page](screenshots/Home%20Page.png)
+
+### Goal Page
+![Goal Page](screenshots/Goal%20Page.png)
+
+### Sign Up Page
+![Sign Up Page](screenshots/Sign%20Up%20Page.png)
       
 
 ## Questions
