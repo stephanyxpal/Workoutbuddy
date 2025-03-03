@@ -1,13 +1,24 @@
 import js from "@eslint/js";
+import { fileURLToPath } from "url";
 import tseslint from "@typescript-eslint/eslint-plugin";
 import tsparser from "@typescript-eslint/parser";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import jsxA11y from "eslint-plugin-jsx-a11y";
+import { FlatCompat } from "@eslint/eslintrc";
+import path from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname
+});
 
 export default [
-  js.configs.recommended, // Base ESLint rules
-  tseslint.configs.recommended, // TypeScript rules
+  // ...compat.extends(js.configs.recommended),
+  // ...compat.extends(tseslint.configs.recommended),
+
   {
     files: ["**/*.ts", "**/*.tsx"], // Apply to all TypeScript & JSX files
     languageOptions: {
@@ -18,7 +29,7 @@ export default [
         ecmaFeatures: {
           jsx: true, // Enable JSX parsing
         },
-        project: "./tsconfig.json",
+        // project: "./tsconfig.json",
       },
     },
     plugins: {
