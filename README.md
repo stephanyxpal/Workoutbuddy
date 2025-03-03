@@ -16,7 +16,8 @@ Workout Buddy is a fitness app designed to effortlessly log user workouts, track
   - [Technologies Used](#technologies-used)
   - [License](#license)
   - [Contributing](#contributing)
-- [Images :](#images-)
+  - [Images :](#images-)
+  - [Screenshots](#Screenshots)
   - [Questions](#questions)
 
 ## Usage
