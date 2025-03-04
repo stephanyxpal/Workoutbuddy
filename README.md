@@ -3,7 +3,32 @@
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
 ## Description
-Workout Buddy is a fitness app designed to effortlessly log user workouts, track progress and keep user accountable. Workout Buddy helps user record every rep, set, and session, to focus on getting stronger. 
+Workout Buddy is a fitness tracking app designed to help users log their workouts, set fitness goals, and track their progress. Built with React and Chakra UI for the frontend and GraphQL for routing, the app provides an interactive and user-friendly experience. The App is deployed to render and CICID pipeline is set up using github actions.
+
+**Features**
+User Authentication: Secure login and registration system.
+Workout Logging: Track different exercises, duration, and intensity.
+Goal Setting: Set fitness goals and track progress over time.
+Progress Tracking: View workout history and monitor improvements.
+Responsive Design: Optimized for mobile and desktop views using Chakra UI.
+GraphQL API: Efficient data fetching and state management.
+
+**Component Details**
+1. Signup and Login Page
+A user can log in to the application using their email ID and password. The password is encrypted using the bcrypt package. When authentication is successful, the JWT token is stored in local storage for authentication validation. If a user does not have an account, they can create one by providing their email, password, and basic details. When a user logs out, the stored JWT token is deleted.
+2. Home Page
+After logging in, users are redirected to the dashboard, where they can see an overview of their fitness progress. The dashboard displays key metrics such as total workouts completed, progress toward goals, and recent activity logs.
+3. Workout Logging Page
+Users can log their workouts by entering exercise details, including:
+Exercise name
+Duration
+calories burned
+Repetitions/sets (if applicable)
+Each workout entry is saved and can be reviewed later in the history section.
+4. Goals Page
+Users can set fitness goals, such as target weight, workout frequency, or exercise-specific milestones. The app tracks goal completion and provides visual progress indicators.
+5. Profile Page
+Users can see their profile details.
 
 ## Table of Contents
 
@@ -53,16 +78,10 @@ https://workoutbuddy-f6uy.onrender.com
 - Responsive for mobile and desktop 
 
 ## Technologies Used
-
-- React
-- TypeScript
-- React Router
-- Apollo Client
-- GraphQL
-- Express
-- MongoDB
-- Mongoose
-- JWT 
+Frontend: React, Chakra UI
+Backend: Node.js, Express, GraphQL
+Database: MongoDB, Mongoose
+Authentication: JSON Web Tokens (JWT)
 
 ## License
 This project is licensed under the [MIT License](https://opensource.org/license/mit)
